@@ -34,9 +34,10 @@ struct CardView : View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20).fill(Color.red).padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            RoundedRectangle(cornerRadius: 20).fill(Color.red)
             Text("Hello, World!")
-        }
+        }.padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+
     }
     
 }
