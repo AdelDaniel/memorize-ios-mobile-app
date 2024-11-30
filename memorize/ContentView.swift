@@ -15,18 +15,67 @@ import SwiftData
 
 
 struct ContentView: View {
-    let emojis : [String] = ["🐶", "🐟", "👻", "🤯"]
+    let emojis : [String] = ["🐶", "🐟", "👻", "🤯","🙈","👀","👦","👧","💍","💎","👰" , "👲", "👵", "👸", "👹", "👺","😎",]
+    
+    let initCountNumber: Int  = 4
+    @State var countNumber: Int = 4
     
     var body: some View {
-        HStack {
-            ForEach(emojis.indices , id: \.self){
-                index in CardView(content: emojis[index] ,isOpen: true)
-            }
-//            CardView(content: emojis[0] ,isOpen: true)
-//            CardView(content: emojis[1] )
-//            CardView(content: emojis[2] )
-//            CardView(content: emojis[3] )
+        VStack {
+            title
+            cards
+            Spacer()
+            cardsAdjuster
         }.padding()
+    }
+    
+    var title: some View{
+        Text("Memorize")
+            .font(.title)
+            .padding()
+        
+
+    }
+    
+    var cards: some View{
+        LazyVGrid(columns: [GridItem(),GridItem(),GridItem()] ){
+            ForEach(0..<countNumber , id: \.self){
+                index in CardView(content: emojis[index] ,isOpen: true)
+            }}
+        }
+    
+    var cardsAdjuster: some View {
+        HStack (alignment: .center){
+            cardAdder
+            Spacer()
+            reset
+            Spacer()
+            cardRemover
+        }.font(.title2)
+
+    }
+
+    var cardAdder : some View {
+        button(by: +1, title: "Add Card")
+    }
+    
+    var cardRemover: some View {
+        button(by: -1, title: "Remove Card")
+    }
+    
+    func button(by offset: Int , title: String) -> some View {
+        Button(title )  {
+            countNumber += offset
+        }.disabled(countNumber + offset > emojis.count || countNumber + offset < 0)
+
+    }
+    
+    var reset : some View {
+        Button(action: {
+        countNumber = initCountNumber
+        } ,label:{
+            Image(systemName: "clear")
+        })
     }
 }
 
