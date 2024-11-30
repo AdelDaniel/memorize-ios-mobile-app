@@ -34,7 +34,7 @@ struct ContentView: View {
             .font(.title)
             .padding()
         
-
+        
     }
     
     var cards: some View{
@@ -42,7 +42,7 @@ struct ContentView: View {
             ForEach(0..<countNumber , id: \.self){
                 index in CardView(content: emojis[index] ,isOpen: true)
             }}
-        }
+    }
     
     var cardsAdjuster: some View {
         HStack (alignment: .center){
@@ -52,9 +52,9 @@ struct ContentView: View {
             Spacer()
             cardRemover
         }.font(.title2)
-
+        
     }
-
+    
     var cardAdder : some View {
         button(by: +1, title: "Add Card")
     }
@@ -67,12 +67,12 @@ struct ContentView: View {
         Button(title )  {
             countNumber += offset
         }.disabled(countNumber + offset > emojis.count || countNumber + offset < 0)
-
+        
     }
     
     var reset : some View {
         Button(action: {
-        countNumber = initCountNumber
+            countNumber = initCountNumber
         } ,label:{
             Image(systemName: "clear")
         })
@@ -86,7 +86,7 @@ struct CardView : View {
     
     var body: some View {
         let roundRectangle = RoundedRectangle(cornerRadius: 20)
-//        let base = Circle()
+        //        let base = Circle()
         ZStack {
             if isOpen {
                 roundRectangle.fill(Color.white)
@@ -103,63 +103,3 @@ struct CardView : View {
         })
     }
 }
-
-//
-//struct ContentView: View {
-//    @Environment(\.modelContext) private var modelContext
-//    @Query private var items: [Item]
-//
-//    var i : Int = 0 ;
-//    var body: some View {
-//        RoundedRectangle(cornerRadius: 20).fill(Color.red).padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-//        NavigationSplitView {
-//            List {
-//                ForEach(items) { item in
-//                    NavigationLink {
-//                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-//                    } label: {
-//                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-//                    }
-//                }
-//                .onDelete(perform: deleteItems)
-//            }
-//#if os(macOS)
-//            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-//#endif
-//            .toolbar {
-//#if os(iOS)
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    EditButton()
-//                }
-//#endif
-//                ToolbarItem {
-//                    Button(action: addItem) {
-//                        Label("Add Item", systemImage: "plus")
-//                    }
-//                }
-//            }
-//        } detail: {
-//            Text("Select an item")
-//        }
-//    }
-//
-//    private func addItem() {
-//        withAnimation {
-//            let newItem = Item(timestamp: Date())
-//            modelContext.insert(newItem)
-//        }
-//    }
-//
-//    private func deleteItems(offsets: IndexSet) {
-//        withAnimation {
-//            for index in offsets {
-//                modelContext.delete(items[index])
-//            }
-//        }
-//    }
-//}
-//
-//#Preview {
-//    ContentView()
-//        .modelContainer(for: Item.self, inMemory: true)
-//}
