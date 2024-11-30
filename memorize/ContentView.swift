@@ -21,25 +21,36 @@ struct ContentView: View {
     var i : Int = 0 ;
     var body: some View {
         HStack {
+            CardView(isOpen: true)
             CardView()
             CardView()
             CardView()
-            CardView()
-        }
+        }.padding()
     }
 }
 
 
 struct CardView : View {
+    @State var isOpen: Bool = false;
     
     var body: some View {
+        let roundRectangle = RoundedRectangle(cornerRadius: 20)
+//        let base = Circle()
         ZStack {
-            RoundedRectangle(cornerRadius: 20).fill(Color.red)
-            Text("Hello, World!")
-        }.padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-
+            if isOpen {
+                roundRectangle.fill(Color.white)
+                roundRectangle.stroke(Color.red , lineWidth: 2)
+                Text("Hello, World!")
+                
+            } else {
+                roundRectangle.fill(Color.red)
+                Text("Hello, World!")
+            }
+        }    .onTapGesture(count: 1, perform:  {
+            print("tapped")
+            isOpen = !isOpen
+        })
     }
-    
 }
 
 //
