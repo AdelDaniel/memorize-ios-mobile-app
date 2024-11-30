@@ -33,15 +33,18 @@ struct ContentView: View {
         Text("Memorize")
             .font(.title)
             .padding()
-        
-        
     }
     
     var cards: some View{
-        LazyVGrid(columns: [GridItem(),GridItem(),GridItem()] ){
-            ForEach(0..<countNumber , id: \.self){
-                index in CardView(content: emojis[index] ,isOpen: true)
-            }}
+        ScrollView{
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))] ){
+                ForEach(0..<countNumber , id: \.self){
+                    index in
+                    CardView(content: emojis[index] ,isOpen: true)
+                        .aspectRatio(2/3 , contentMode: .fit)
+                }
+            }
+        }
     }
     
     var cardsAdjuster: some View {
@@ -88,15 +91,14 @@ struct CardView : View {
         let roundRectangle = RoundedRectangle(cornerRadius: 20)
         //        let base = Circle()
         ZStack {
-            if isOpen {
+            Group {
+                
                 roundRectangle.fill(Color.white)
                 roundRectangle.stroke(Color.red , lineWidth: 2)
                 Text(content)
                 
-            } else {
-                roundRectangle.fill(Color.red)
-                
-            }
+            }.opacity(isOpen ? 1 : 0)
+            roundRectangle.fill(Color.red).opacity(isOpen ? 0 : 1)
         }    .onTapGesture(count: 1, perform:  {
             print("tapped")
             isOpen = !isOpen
