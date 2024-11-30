@@ -15,22 +15,24 @@ import SwiftData
 
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    let emojis : [String] = ["🐶", "🐟", "👻", "🤯"]
     
-    var i : Int = 0 ;
     var body: some View {
         HStack {
-            CardView(isOpen: true)
-            CardView()
-            CardView()
-            CardView()
+            ForEach(emojis.indices , id: \.self){
+                index in CardView(content: emojis[index] ,isOpen: true)
+            }
+//            CardView(content: emojis[0] ,isOpen: true)
+//            CardView(content: emojis[1] )
+//            CardView(content: emojis[2] )
+//            CardView(content: emojis[3] )
         }.padding()
     }
 }
 
 
 struct CardView : View {
+    let content: String
     @State var isOpen: Bool = false;
     
     var body: some View {
@@ -40,11 +42,11 @@ struct CardView : View {
             if isOpen {
                 roundRectangle.fill(Color.white)
                 roundRectangle.stroke(Color.red , lineWidth: 2)
-                Text("Hello, World!")
+                Text(content)
                 
             } else {
                 roundRectangle.fill(Color.red)
-                Text("Hello, World!")
+                
             }
         }    .onTapGesture(count: 1, perform:  {
             print("tapped")
