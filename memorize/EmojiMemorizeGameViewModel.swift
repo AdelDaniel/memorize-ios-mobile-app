@@ -58,7 +58,7 @@ class EmojiMemorizeGameViewModel {
     //    )
     
     
-    /// Normal Two --> Change The Curly Practise and add in
+    /// Normal Two --> Change The Curly brackets and add in
     //    private var model = MemorizeGameModel<String>(
     //        numberOfPairs: 4,
     //        cardContentFactory: { (index: Int) -> String in

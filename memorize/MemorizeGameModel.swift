@@ -11,9 +11,10 @@ import Foundation
 struct MemorizeGameModel<CardContentType> {
     private(set) var cards: [MemorizeGameCardModel]
     
+    
     init(numberOfPairs: Int , cardContentFactory: (Int) -> CardContentType ) {
         var cards: [MemorizeGameCardModel] = []
-        /// The max number of paris must be more than 2 
+        /// The max number of pairs must be more than 2
         for pairIndex in 0..<max(2,numberOfPairs) {
             let cardContentType = cardContentFactory(pairIndex)
             cards.append(MemorizeGameCardModel(content: cardContentType) )
