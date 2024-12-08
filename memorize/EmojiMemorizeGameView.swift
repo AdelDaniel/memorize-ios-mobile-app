@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  EmojiMemorizeGameView.swift
 //  memorize
 //
 //  Created by Adel Nabil on 18/11/2024.
@@ -9,12 +9,12 @@ import SwiftUI
 import SwiftData
 
 #Preview {
-    ContentView()
+    EmojiMemorizeGameView()
         .modelContainer(for: Item.self, inMemory: true)
 }
 
 
-struct ContentView: View {
+struct EmojiMemorizeGameView: View {
     let emojis : [String] = ["🐶", "🐟", "👻", "🤯","🙈","👀","👦","👧","💍","💎","👰" , "👲", "👵", "👸", "👹", "👺","😎",]
     
     let initCountNumber: Int  = 4
