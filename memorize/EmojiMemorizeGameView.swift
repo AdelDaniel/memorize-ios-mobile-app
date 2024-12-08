@@ -15,7 +15,8 @@ import SwiftData
 
 
 struct EmojiMemorizeGameView: View {
-    let emojis : [String] = ["🐶", "🐟", "👻", "🤯","🙈","👀","👦","👧","💍","💎","👰" , "👲", "👵", "👸", "👹", "👺","😎",]
+    
+    var viewModel: EmojiMemorizeGameViewModel = EmojiMemorizeGameViewModel()
     
     let initCountNumber: Int  = 4
     @State var countNumber: Int = 4
@@ -38,9 +39,9 @@ struct EmojiMemorizeGameView: View {
     var cards: some View{
         ScrollView{
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))] ){
-                ForEach(0..<countNumber , id: \.self){
+                ForEach(0..<viewModel.cards.count , id: \.self){
                     index in
-                    CardView(content: emojis[index] ,isOpen: true)
+                    CardView(cardModel: viewModel.cards[index])
                         .aspectRatio(2/3 , contentMode: .fit)
                 }
             }
@@ -67,10 +68,9 @@ struct EmojiMemorizeGameView: View {
     }
     
     func button(by offset: Int , title: String) -> some View {
-        Button(title )  {
+        Button(title) {
             countNumber += offset
-        }.disabled(countNumber + offset > emojis.count || countNumber + offset < 0)
-        
+        }
     }
     
     var reset : some View {
@@ -84,8 +84,8 @@ struct EmojiMemorizeGameView: View {
 
 
 struct CardView : View {
-    let content: String
-    @State var isOpen: Bool = false;
+    
+    var cardModel: MemorizeGameModel<String>.MemorizeGameCardModel
     
     var body: some View {
         let roundRectangle = RoundedRectangle(cornerRadius: 20)
@@ -95,13 +95,13 @@ struct CardView : View {
                 
                 roundRectangle.fill(Color.white)
                 roundRectangle.stroke(Color.red , lineWidth: 2)
-                Text(content)
+                Text(cardModel.content)
                 
-            }.opacity(isOpen ? 1 : 0)
-            roundRectangle.fill(Color.red).opacity(isOpen ? 0 : 1)
+            }.opacity(cardModel.isFaceUp ? 1 : 0)
+            roundRectangle.fill(Color.red).opacity(cardModel.isFaceUp ? 0 : 1)
         }    .onTapGesture(count: 1, perform:  {
             print("tapped")
-            isOpen = !isOpen
+            //            isOpen = !isOpen
         })
     }
 }
