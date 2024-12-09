@@ -9,9 +9,11 @@ import SwiftUI
 
 
 
-class EmojiMemorizeGameViewModel {
+/// ObservableObject: is a protocol to update the view when change the variables marked as @Published
+/// Also need to mark this viewModel at deceleration as @ObservedObject
+class EmojiMemorizeGameViewModel : ObservableObject {
     
-    /// Statics
+    //MARK: Statics
     private static let emojis = ["🐶", "🐟", "👻", "🤯","🙈","👀","👦","👧","💍","💎","👰" , "👲", "👵", "👸", "👹", "👺","😎"]
     
     private static func createMemorizeGameModel() -> MemorizeGameModel<String>{
@@ -26,19 +28,28 @@ class EmojiMemorizeGameViewModel {
         }
     }
     
-    /// Variables
-    private var model = createMemorizeGameModel()
+    // MARK: Variables
+    
+    // published means that when this change it will affect the UI
+    @Published private var model = createMemorizeGameModel()
     
     
-    /// Functions
+    // MARK: Functions
     var cards: [MemorizeGameModel<String>.MemorizeGameCardModel] {
         return model.cards
+    }
+    
+    
+    // MARK: - Intents
+    
+    func shuffleCards(){
+        model.shuffleCards()
     }
     
     func chooseCard(_ card: MemorizeGameModel<String>.MemorizeGameCardModel){
         model.chooseCard(card)
     }
-
+    
     
     
     
@@ -74,5 +85,5 @@ class EmojiMemorizeGameViewModel {
     //    static func createEmojiContentType (forPairAtIndex index: Int) -> String {
     //        return  emojis[index]
     //    }
-        
+    
 }

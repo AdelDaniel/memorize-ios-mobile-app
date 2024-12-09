@@ -11,7 +11,7 @@ import Foundation
 struct MemorizeGameModel<CardContentType> {
     private(set) var cards: [MemorizeGameCardModel]
     
-    
+     
     init(numberOfPairs: Int , cardContentFactory: (Int) -> CardContentType ) {
         var cards: [MemorizeGameCardModel] = []
         /// The max number of pairs must be more than 2
@@ -24,13 +24,23 @@ struct MemorizeGameModel<CardContentType> {
         self.cards = cards
     }
     
+    // MARK: - Functions
+    
+    // mutating means: copy and write here because it is immutable
+    mutating func shuffleCards() {
+        self.cards.shuffle()
+        print(cards)
+    }
+    
     func chooseCard(_ card: MemorizeGameCardModel) {
         
     }
     
     
+    
+    // MARK: - Struct
     struct MemorizeGameCardModel {
-        var isFaceUp: Bool = false
+        var isFaceUp: Bool = true
         var isMatched: Bool  = false
         var content: CardContentType
         
