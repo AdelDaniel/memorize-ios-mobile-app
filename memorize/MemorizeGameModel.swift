@@ -39,7 +39,11 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
     
     
     // MARK: - Struct
-    struct MemorizeGameCardModel: Equatable, Identifiable{
+    struct MemorizeGameCardModel: Equatable, Identifiable, CustomDebugStringConvertible{
+        var debugDescription: String{
+            return "\(id): \(content) \(isFaceUp ? "Face UP" : "Face Down") & \(isMatched ? "Matched" : "Not Matched")"
+        }
+        
         var id: String
         
         
