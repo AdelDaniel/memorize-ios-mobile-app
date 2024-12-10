@@ -16,7 +16,7 @@ import SwiftData
 
 struct EmojiMemorizeGameView: View {
     
-    // ObservedObject always have to be passed to you 
+    // ObservedObject always have to be passed to you
     @ObservedObject var viewModel: EmojiMemorizeGameViewModel
     
     let initCountNumber: Int  = 4
@@ -25,7 +25,7 @@ struct EmojiMemorizeGameView: View {
     var body: some View {
         VStack {
             title
-            cards
+            cards.animation(.default, value: viewModel.cards)
             Spacer()
             cardsAdjuster
         }.padding()
@@ -43,12 +43,22 @@ struct EmojiMemorizeGameView: View {
                 columns: [GridItem(.adaptive(minimum: 120), spacing: 0)] ,
                 spacing: 0 )
             {
-                ForEach(0..<viewModel.cards.count , id: \.self){
-                    index in
-                    CardView(cardModel: viewModel.cards[index])
+                /// Card Index
+                //                ForEach(viewModel.cards.indices , id: \.self){
+                //                    index in
+                //                    CardView(cardModel: viewModel.cards[index])
+                //                        .aspectRatio(2/3 , contentMode: .fit)
+                //                        .padding(4)
+                //                }
+                
+                /// Card itself
+                ForEach(viewModel.cards){
+                    card in
+                    CardView(cardModel: card)
                         .aspectRatio(2/3 , contentMode: .fit)
                         .padding(4)
                 }
+                
             }
         }
     }
@@ -95,7 +105,7 @@ struct EmojiMemorizeGameView: View {
             Image(systemName: "shuffle")
         })
     }
-
+    
 }
 
 
