@@ -17,9 +17,12 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
         /// The max number of pairs must be more than 2
         for pairIndex in 0..<max(2,numberOfPairs) {
             let cardContentType = cardContentFactory(pairIndex)
-            cards.append(MemorizeGameCardModel(id: "\(pairIndex+1)A", content: cardContentType) )
-            cards.append(MemorizeGameCardModel(id: "\(pairIndex+1)B", content: cardContentType) )
-            
+            cards.append(MemorizeGameCardModel(
+                content: cardContentType, id: "\(pairIndex+1)A")
+            )
+            cards.append(MemorizeGameCardModel(
+                content: cardContentType, id: "\(pairIndex+1)B")
+            )
         }
         self.cards = cards
     }
@@ -39,25 +42,19 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
     
     
     func index(of card: MemorizeGameCardModel)-> Int{
-                
+        
         for index in cards.indices  {
             if cards[index].id == card.id {
                 return index
             }
         }
-        return 0  // FIXME: 
+        return 0  // FIXME:
     }
     
     
     // MARK: - Struct
-    struct MemorizeGameCardModel: Equatable, Identifiable, CustomDebugStringConvertible{
-        var debugDescription: String{
-            return "\(id): \(content) \(isFaceUp ? "Face UP" : "Face Down") & \(isMatched ? "Matched" : "Not Matched")"
-        }
-        
-        var id: String
-        
-        
+    struct MemorizeGameCardModel: Equatable, Identifiable,
+                                  CustomDebugStringConvertible{
         // Equatable Function if required
         //        static func == (
         //            lhs: MemorizeGameModel<CardContentType>.MemorizeGameCardModel,
@@ -70,6 +67,16 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
         var isFaceUp: Bool = true
         var isMatched: Bool  = false
         var content: CardContentType
+        
+        var id: String
+        
+        // MARK:  Methods
+        var debugDescription: String{
+            return "\(id): \(content) \(isFaceUp ? "Face UP" : "Face Down") & \(isMatched ? "Matched" : "Not Matched")"
+        }
+        
+        
+        
         
         
     }
