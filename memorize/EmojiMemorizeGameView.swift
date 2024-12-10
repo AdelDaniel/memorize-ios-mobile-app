@@ -57,6 +57,9 @@ struct EmojiMemorizeGameView: View {
                     CardView(cardModel: card)
                         .aspectRatio(2/3 , contentMode: .fit)
                         .padding(4)
+                        .onTapGesture {
+                            viewModel.chooseCard(card)
+                        }
                 }
                 
             }
@@ -127,9 +130,6 @@ struct CardView : View {
                 
             }.opacity(cardModel.isFaceUp ? 1 : 0)
             roundRectangle.fill(Color.red).opacity(cardModel.isFaceUp ? 0 : 1)
-        }    .onTapGesture(count: 1, perform:  {
-            print("tapped")
-            //            isOpen = !isOpen
-        })
+        }    
     }
 }

@@ -32,10 +32,21 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
         print(cards)
     }
     
-    func chooseCard(_ card: MemorizeGameCardModel) {
-        
+    mutating func chooseCard(_ card: MemorizeGameCardModel) {
+        let choseCardIndex = index(of: card)
+        cards[choseCardIndex].isFaceUp.toggle()
     }
     
+    
+    func index(of card: MemorizeGameCardModel)-> Int{
+                
+        for index in cards.indices  {
+            if cards[index].id == card.id {
+                return index
+            }
+        }
+        return 0  // FIXME: 
+    }
     
     
     // MARK: - Struct
