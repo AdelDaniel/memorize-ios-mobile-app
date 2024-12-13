@@ -18,7 +18,7 @@ class EmojiMemorizeGameViewModel : ObservableObject {
     
     private static func createMemorizeGameModel() -> MemorizeGameModel<String>{
         /// We check that pair index in the scope length of the emojis list
-        MemorizeGameModel(numberOfPairs: 4){pairIndex in
+        MemorizeGameModel(numberOfPairs: 8){pairIndex in
             if emojis.indices.contains(pairIndex){
                 return emojis[pairIndex]
             }else{
