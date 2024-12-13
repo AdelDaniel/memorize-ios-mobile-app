@@ -48,10 +48,14 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
     // mutating means: copy and write here because it is immutable
     mutating func resetCards() {
         onlyOneCardFaceUpIndex = nil
+        self.cards.indices.forEach {
+            cards[$0].isFaceUp = false
+            cards[$0].isMatched = false
+        }
         self.cards.shuffle()
         print(cards)
     }
-
+    
     
     mutating func chooseCard(_ card: MemorizeGameCardModel) {
         if let choseCardIndex = index(of: card) {
