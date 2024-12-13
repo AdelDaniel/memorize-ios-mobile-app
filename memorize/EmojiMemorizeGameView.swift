@@ -18,10 +18,7 @@ struct EmojiMemorizeGameView: View {
     
     // ObservedObject always have to be passed to you
     @ObservedObject var viewModel: EmojiMemorizeGameViewModel
-    
-    let initCountNumber: Int  = 4
-    @State var countNumber: Int = 4
-    
+        
     var body: some View {
         VStack {
             title
@@ -68,34 +65,16 @@ struct EmojiMemorizeGameView: View {
     
     var cardsAdjuster: some View {
         HStack (alignment: .center){
-            cardAdder
-            Spacer()
             reset
             Spacer()
             shuffleButton
-            Spacer()
-            cardRemover
         }.font(.title2)
         
     }
     
-    var cardAdder : some View {
-        button(by: +1, title: "Add Card")
-    }
-    
-    var cardRemover: some View {
-        button(by: -1, title: "Remove Card")
-    }
-    
-    func button(by offset: Int , title: String) -> some View {
-        Button(title) {
-            countNumber += offset
-        }
-    }
-    
     var reset : some View {
         Button(action: {
-            countNumber = initCountNumber
+            viewModel.resetCards()
         } ,label:{
             Image(systemName: "clear")
         })

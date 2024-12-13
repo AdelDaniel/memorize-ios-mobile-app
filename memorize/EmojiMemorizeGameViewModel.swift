@@ -46,6 +46,10 @@ class EmojiMemorizeGameViewModel : ObservableObject {
         model.shuffleCards()
     }
     
+    func resetCards(){
+        model.resetCards()
+    }
+    
     func chooseCard(_ card: MemorizeGameModel<String>.MemorizeGameCardModel){
         print("Choose Card: \(card)")
         model.chooseCard(card)
