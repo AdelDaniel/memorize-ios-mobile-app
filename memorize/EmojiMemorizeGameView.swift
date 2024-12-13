@@ -40,7 +40,7 @@ struct EmojiMemorizeGameView: View {
     var cards: some View{
         ScrollView{
             LazyVGrid(
-                columns: [GridItem(.adaptive(minimum: 120), spacing: 0)] ,
+                columns: [GridItem(.adaptive(minimum: 80), spacing: 0)] ,
                 spacing: 0 )
             {
                 /// Card Index
@@ -130,6 +130,6 @@ struct CardView : View {
                 
             }.opacity(cardModel.isFaceUp ? 1 : 0)
             roundRectangle.fill(Color.red).opacity(cardModel.isFaceUp ? 0 : 1)
-        }    
+        }.opacity(cardModel.isMatched ? 0 : 1)
     }
 }
