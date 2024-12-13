@@ -16,9 +16,12 @@ class EmojiMemorizeGameViewModel : ObservableObject {
     //MARK: Statics
     private static let emojis = ["🐶", "🐟", "👻", "🤯","🙈","👀","👦","👧","💍","💎","👰" , "👲", "👵", "👸", "👹", "👺","😎"]
     
+    static let numberOfPairs: Int = 14
+    static let numberOfCards: Int = numberOfPairs * 2
+    
     private static func createMemorizeGameModel() -> MemorizeGameModel<String>{
         /// We check that pair index in the scope length of the emojis list
-        MemorizeGameModel(numberOfPairs: 8){pairIndex in
+        MemorizeGameModel(numberOfPairs: numberOfPairs){pairIndex in
             if emojis.indices.contains(pairIndex){
                 return emojis[pairIndex]
             }else{
@@ -29,6 +32,7 @@ class EmojiMemorizeGameViewModel : ObservableObject {
     }
     
     // MARK: Variables
+    
     
     // published means that when this change it will affect the UI
     @Published private var model = createMemorizeGameModel()
