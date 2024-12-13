@@ -27,6 +27,16 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
         self.cards = cards
     }
     
+    var onlyOneCardFaceUpIndex: Int? {
+        get{
+            return cards.indices.filter{  cards[$0].isFaceUp }.onlyFirst
+        }
+        set{
+            cards.indices.forEach { cards[$0].isFaceUp = (newValue == $0)   }
+        }
+    }
+    
+    
     // MARK: - Functions
     
     // mutating means: copy and write here because it is immutable
@@ -37,18 +47,40 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
     
     mutating func chooseCard(_ card: MemorizeGameCardModel) {
         if let choseCardIndex = index(of: card) {
-            cards[choseCardIndex].isFaceUp.toggle()
+            if !cards[choseCardIndex].isFaceUp && !cards[choseCardIndex].isMatched {
+                if let potentialIndex = onlyOneCardFaceUpIndex {
+                    
+                    // check the last selected card index and current selected card index are matched
+                    if cards[choseCardIndex].content == cards[potentialIndex].content {
+                        cards[choseCardIndex].isMatched = true
+                        cards[potentialIndex].isMatched = true
+                    }
+                }
+                else{
+                    onlyOneCardFaceUpIndex = choseCardIndex
+                }
+                
+                cards[choseCardIndex].isFaceUp = true
+            }
         }
     }
     
     
     private func index(of card: MemorizeGameCardModel)-> Optional<Int>{
-        for index in cards.indices  {
-            if cards[index].id == card.id {
-                return .some(index)
-            }
+        if let index = cards.firstIndex (where: { $0.id == card.id }){
+            return .some(index)
         }
-        return .none      }
+        return .none
+        
+        
+        
+        //        for index in cards.indices  {
+        //            if cards[index].id == card.id {
+        //                return .some(index)
+        //            }
+        //        }
+        //        return .none
+    }
     
     
     // MARK: - Struct
@@ -63,7 +95,7 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
         //                && lhs.content == rhs.content
         //            }
         
-        var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
         var isMatched: Bool  = false
         var content: CardContentType
         
@@ -78,5 +110,11 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
         
         
         
+    }
+}
+
+extension Array {
+    var onlyFirst: Element? {
+        count == 1 ? first : nil
     }
 }
