@@ -38,7 +38,7 @@ struct EmojiMemorizeGameView: View {
     
     var cards: some View{
         
-        AspectVGrid(items: viewModel.cards, aspectRatio: aspectRatio)
+        AspectVGrid(viewModel.cards, aspectRatio: aspectRatio)
         {
             cardItem in
             CardView(cardModel: cardItem)
