@@ -16,7 +16,7 @@ class EmojiMemorizeGameViewModel : ObservableObject {
     //MARK: Statics
     private static let emojis = ["🐶", "🐟", "👻", "🤯","🙈","👀","👦","👧","💍","💎","👰" , "👲", "👵", "👸", "👹", "👺","😎"]
     
-    static let numberOfPairs: Int = 14
+    static let numberOfPairs: Int = 8
     static let numberOfCards: Int = numberOfPairs * 2
     
     private static func createMemorizeGameModel() -> MemorizeGameModel<String>{

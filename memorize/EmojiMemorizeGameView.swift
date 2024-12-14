@@ -34,10 +34,21 @@ struct EmojiMemorizeGameView: View {
             .padding()
     }
     
+    @ViewBuilder
     var cards: some View{
-        ScrollView{
+        let aspectRatio: CGFloat = 2/3
+
+        GeometryReader{
+            geometry in
+            
+            let fitWidth = cardWidthThatFit(
+                numberOfCards: EmojiMemorizeGameViewModel.numberOfCards,
+                size: geometry.size,
+                atAspectRatio: aspectRatio
+            )
+            
             LazyVGrid(
-                columns: [GridItem(.adaptive(minimum: 80), spacing: 0)] ,
+                columns: [GridItem(.adaptive(minimum: fitWidth), spacing: 0)] ,
                 spacing: 0 )
             {
                 /// Card Index
@@ -52,15 +63,52 @@ struct EmojiMemorizeGameView: View {
                 ForEach(viewModel.cards){
                     card in
                     CardView(cardModel: card)
-                        .aspectRatio(2/3 , contentMode: .fit)
+                        .aspectRatio(aspectRatio , contentMode: .fit)
                         .padding(4)
                         .onTapGesture {
                             viewModel.chooseCard(card)
                         }
                 }
-                
             }
         }
+    }
+        
+        
+        
+    
+    
+    private func cardWidthThatFit(
+        numberOfCards: Int,
+        size: CGSize,
+        atAspectRatio ratio: CGFloat
+    ) -> CGFloat {
+        let numberOfCards = CGFloat(numberOfCards)
+        var columnCount = 1.0
+        repeat {
+            let cardWidth = size.width / columnCount
+            let cardHeight = cardWidth / ratio
+            
+            let rowsCount = (numberOfCards / columnCount).rounded(.up)
+            
+            // the check if the total rows height is less than screen height
+            // then that is what we need and return
+            if rowsCount * cardHeight < size.height {
+                return cardWidth.rounded(.down)
+            }
+            
+            columnCount += 1
+            
+        }while columnCount < numberOfCards
+        
+        
+        /// if all of the above failed
+    
+        let cardWidth = size.width / numberOfCards
+        let cardHeight = cardWidth / ratio
+        
+        return min(cardWidth, cardHeight).rounded(.down)
+
+        
     }
     
     var cardsAdjuster: some View {
@@ -69,7 +117,7 @@ struct EmojiMemorizeGameView: View {
             Spacer()
             shuffleButton
         }.font(.title2)
-        
+            .padding(16)
     }
     
     var reset : some View {
