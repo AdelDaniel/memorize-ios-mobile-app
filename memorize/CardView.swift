@@ -9,8 +9,8 @@ import SwiftUI
 
 
 struct CardView : View {
-    
-    var cardModel: MemorizeGameModel<String>.MemorizeGameCardModel
+    typealias CardModel = MemorizeGameModel<String>.MemorizeGameCardModel
+    var cardModel: CardModel
     
     var body: some View {
         let roundRectangle = RoundedRectangle(cornerRadius: 16)
@@ -33,22 +33,23 @@ struct CardView : View {
 }
 
 #Preview {
+    
     VStack{
         HStack{
-            CardView(cardModel: MemorizeGameModel<String>.MemorizeGameCardModel(
+            CardView(cardModel: CardView.CardModel(
                 isFaceUp: true,
                 content: "this text is too long to fit",
                 id: "ID")
             )
-            CardView(cardModel: MemorizeGameModel<String>.MemorizeGameCardModel(content: "C", id: "ID")
+            CardView(cardModel: CardView.CardModel(content: "C", id: "ID")
             )
         }
         
         HStack{
-            CardView(cardModel: MemorizeGameModel<String>.MemorizeGameCardModel(content: "C", id: "ID")
+            CardView(cardModel: CardView.CardModel(content: "C", id: "ID")
             )
             CardView(
-                cardModel: MemorizeGameModel<String>.MemorizeGameCardModel(
+                cardModel: CardView.CardModel(
                     isMatched : true,
                     content: "C", id: "ID")
             )

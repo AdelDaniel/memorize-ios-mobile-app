@@ -13,6 +13,8 @@ import SwiftUI
 /// Also need to mark this viewModel at deceleration as @ObservedObject
 class EmojiMemorizeGameViewModel : ObservableObject {
     
+    typealias CardModel = MemorizeGameModel<String>.MemorizeGameCardModel;
+    
     //MARK: Statics
     private static let emojis = ["🐶", "🐟", "👻", "🤯","🙈","👀","👦","👧","💍","💎","👰" , "👲", "👵", "👸", "👹", "👺","😎"]
     
@@ -39,7 +41,7 @@ class EmojiMemorizeGameViewModel : ObservableObject {
     
     
     // MARK: Functions
-    var cards: [MemorizeGameModel<String>.MemorizeGameCardModel] {
+    var cards: [CardModel] {
         return model.cards
     }
     
@@ -54,7 +56,7 @@ class EmojiMemorizeGameViewModel : ObservableObject {
         model.resetCards()
     }
     
-    func chooseCard(_ card: MemorizeGameModel<String>.MemorizeGameCardModel){
+    func chooseCard(_ card: CardModel){
         print("Choose Card: \(card)")
         model.chooseCard(card)
     }
