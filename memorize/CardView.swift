@@ -24,7 +24,7 @@ struct CardView : View {
                     .padding(Constants.Font.padding)
             )
             .padding(Constants.insets)
-            .modifier(CardifyViewModifier(isFaceUp: cardModel.isFaceUp))
+            .cardifyViewModifier(isFaceUp: cardModel.isFaceUp)
             .opacity(cardModel.isMatched ? 0 : 1)
     }
     
