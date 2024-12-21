@@ -13,32 +13,24 @@ struct CardView : View {
     var cardModel: CardModel
     
     var body: some View {
-        let roundRectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius)
-        
-        ZStack {
-            Group {
-                roundRectangle.fill(Color.white)
-                roundRectangle.stroke(Color.red , lineWidth: Constants.lineWidth)
-                PieShape()
-                    .opacity(Constants.Pie.opacity)
-                    .overlay(
-                        Text(cardModel.content)
-                            .font(.system(size: Constants.Font.size))
-                            .minimumScaleFactor(Constants.Font.minimumScaleFactor)
-                            .multilineTextAlignment(.center)
-                            .aspectRatio(1, contentMode: .fit)
-                            .padding(Constants.Font.padding)
-                    ).padding(Constants.Pie.insets)
-                
-            }.opacity(cardModel.isFaceUp ? 1 : 0)
-            roundRectangle.fill(Color.red).opacity(cardModel.isFaceUp ? 0 : 1)
-        }.opacity(cardModel.isMatched ? 0 : 1)
+        PieShape()
+            .opacity(Constants.Pie.opacity)
+            .overlay(
+                Text(cardModel.content)
+                    .font(.system(size: Constants.Font.size))
+                    .minimumScaleFactor(Constants.Font.minimumScaleFactor)
+                    .multilineTextAlignment(.center)
+                    .aspectRatio(1, contentMode: .fit)
+                    .padding(Constants.Font.padding)
+            )
+            .padding(Constants.insets)
+            .modifier(CardifyViewModifier(isFaceUp: cardModel.isFaceUp))
+            .opacity(cardModel.isMatched ? 0 : 1)
     }
     
     private struct Constants{
-        static let cornerRadius: CGFloat = 16
-        static let lineWidth : CGFloat = 2
-        
+        static let insets: CGFloat = 5
+
         struct Font{
             static let size: CGFloat = 200
             static let padding: CGFloat = 5
@@ -50,7 +42,6 @@ struct CardView : View {
         
         struct Pie{
             static let opacity: CGFloat = 0.5
-            static let insets: CGFloat = 5
         }
         
         

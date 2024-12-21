@@ -33,6 +33,7 @@
 		2E46C8F02D15EC92007A9DD3 /* Exceptions for "memorize" folder in "memorizeTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				CardifyViewModifier.swift,
 				CardView.swift,
 				PieShape.swift,
 			);
@@ -41,6 +42,7 @@
 		2E46C8F12D15EC92007A9DD3 /* Exceptions for "memorize" folder in "memorizeUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				CardifyViewModifier.swift,
 				CardView.swift,
 				PieShape.swift,
 			);
