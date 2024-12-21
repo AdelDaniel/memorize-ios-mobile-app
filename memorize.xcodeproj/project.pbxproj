@@ -34,6 +34,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				CardView.swift,
+				PieShape.swift,
 			);
 			target = 2E8D57632CEBDC4800AB68C2 /* memorizeTests */;
 		};
@@ -41,6 +42,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				CardView.swift,
+				PieShape.swift,
 			);
 			target = 2E8D576D2CEBDC4800AB68C2 /* memorizeUITests */;
 		};
