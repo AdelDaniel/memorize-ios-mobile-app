@@ -8,11 +8,6 @@
 import SwiftUI
 import SwiftData
 
-#Preview {
-    EmojiMemorizeGameView(viewModel: EmojiMemorizeGameViewModel())
-        .modelContainer(for: Item.self, inMemory: true)
-}
-
 
 struct EmojiMemorizeGameView: View {
     
@@ -23,21 +18,30 @@ struct EmojiMemorizeGameView: View {
     
     var body: some View {
         VStack {
-            title
+            HStack{
+                title
+                Spacer()
+                scoreView
+            }.padding()
             cards
-            /// the next one is implicit animation
-            /// depends on value changes
+            /// the next one is implicit animation - depends on value changes
             //  .animation(.default, value: viewModel.cards)
             Spacer()
             cardsAdjuster
         }.padding()
     }
     
-    var title: some View{
-        Text("Memorize")
+    var scoreView: some View{
+        /// nil at the Animation is to stop the animation on this
+        Text("Score: \(viewModel.score)")
             .font(.title)
-            .padding()
+            .animation(nil)
     }
+    
+    var title: some View{
+        Text("Memorize").font(.title)
+    }
+    
     
     var cards: some View{
         
@@ -47,8 +51,8 @@ struct EmojiMemorizeGameView: View {
             CardView(cardModel: cardItem)
                 .padding(4)
                 .onTapGesture {
-                    /// Explicit
-                    withAnimation{
+                    /// Explicit Animation
+                    withAnimation(.linear(duration: 1)) {
                         viewModel.chooseCard(cardItem)
                     }
                 }
@@ -84,4 +88,10 @@ struct EmojiMemorizeGameView: View {
             Image(systemName: "shuffle")
         })
     }
+}
+
+
+#Preview {
+    EmojiMemorizeGameView(viewModel: EmojiMemorizeGameViewModel())
+        .modelContainer(for: Item.self, inMemory: true)
 }

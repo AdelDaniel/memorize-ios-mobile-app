@@ -15,7 +15,8 @@ class EmojiMemorizeGameViewModel : ObservableObject {
     
     typealias CardModel = MemorizeGameModel<String>.MemorizeGameCardModel;
     
-    //MARK: Statics
+    
+    // MARK: - Statics
     private static let emojis = ["🐶", "🐟", "👻", "🤯","🙈","👀","👦","👧","💍","💎","👰" , "👲", "👵", "👸", "👹", "👺","😎"]
     
     static let numberOfPairs: Int = 8
@@ -33,11 +34,16 @@ class EmojiMemorizeGameViewModel : ObservableObject {
         }
     }
     
-    // MARK: Variables
+    // MARK: - Variables
     
     
     // published means that when this change it will affect the UI
     @Published private var model = createMemorizeGameModel()
+    
+    
+    var score: Int {
+        return model.score
+    }
     
     
     // MARK: Functions

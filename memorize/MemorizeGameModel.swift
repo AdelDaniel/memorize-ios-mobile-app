@@ -10,6 +10,7 @@ import Foundation
 
 struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
     private(set) var cards: [MemorizeGameCardModel]
+    var score: Int = 0
     
     
     init(numberOfPairs: Int , cardContentFactory: (Int) -> CardContentType ) {
@@ -66,6 +67,14 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
                     if cards[choseCardIndex].content == cards[potentialIndex].content {
                         cards[choseCardIndex].isMatched = true
                         cards[potentialIndex].isMatched = true
+                        score += 2
+                    }else{
+                        if(cards[potentialIndex].isViewBefore == true){
+                            score -= 1;
+                        }
+                        if(cards[choseCardIndex].isViewBefore == true){
+                            score -= 1;
+                        }
                     }
                 }
                 else{
@@ -107,8 +116,15 @@ struct MemorizeGameModel<CardContentType> where CardContentType: Equatable {
         //                && lhs.content == rhs.content
         //            }
         
-        var isFaceUp: Bool = false
+        var isFaceUp: Bool = false {
+            didSet{
+                if oldValue && !isFaceUp {
+                    isViewBefore = true
+                }
+            }
+        }
         var isMatched: Bool  = false
+        var isViewBefore: Bool = false
         var content: CardContentType
         
         var id: String
