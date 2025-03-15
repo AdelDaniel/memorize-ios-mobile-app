@@ -24,7 +24,10 @@ struct EmojiMemorizeGameView: View {
     var body: some View {
         VStack {
             title
-            cards.animation(.default, value: viewModel.cards)
+            cards
+            /// the next one is implicit animation
+            /// depends on value changes
+            //  .animation(.default, value: viewModel.cards)
             Spacer()
             cardsAdjuster
         }.padding()
@@ -44,7 +47,10 @@ struct EmojiMemorizeGameView: View {
             CardView(cardModel: cardItem)
                 .padding(4)
                 .onTapGesture {
-                    viewModel.chooseCard(cardItem)
+                    /// Explicit
+                    withAnimation{
+                        viewModel.chooseCard(cardItem)
+                    }
                 }
         }
         
@@ -70,7 +76,10 @@ struct EmojiMemorizeGameView: View {
     
     var shuffleButton : some View {
         Button(action: {
-            viewModel.shuffleCards()
+            /// Explicit Animaton
+            withAnimation{
+                viewModel.shuffleCards()
+            }
         } ,label:{
             Image(systemName: "shuffle")
         })
