@@ -51,7 +51,9 @@ struct CardView : View {
     }
 }
 
+/// Custom Animation for the flip the card
 extension Animation {
+    /// Custom Animation for the flip the card
     static func cardContentSpinAnimation() -> Animation {
         .linear(duration: 2).repeatForever(autoreverses: false)
     }

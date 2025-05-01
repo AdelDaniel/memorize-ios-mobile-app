@@ -11,6 +11,9 @@ import SwiftData
 
 struct EmojiMemorizeGameView: View {
     
+    
+    typealias CardModel = MemorizeGameModel<String>.MemorizeGameCardModel;
+    
     let aspectRatio: CGFloat = 2/3
     
     // ObservedObject always have to be passed to you
@@ -50,6 +53,7 @@ struct EmojiMemorizeGameView: View {
             cardItem in
             CardView(cardModel: cardItem)
                 .padding(4)
+                .overlay(FlyingNumberView(number: changeScore(cardItem: cardItem)))
                 .onTapGesture {
                     /// Explicit Animation
                     withAnimation(.linear(duration: 1)) {
@@ -81,13 +85,21 @@ struct EmojiMemorizeGameView: View {
     var shuffleButton : some View {
         Button(action: {
             /// Explicit Animaton
-            withAnimation{
+            withAnimation(.easeInOut ) {
                 viewModel.shuffleCards()
             }
         } ,label:{
             Image(systemName: "shuffle")
         })
     }
+    
+    
+    // MARK: - methods
+    
+    private func changeScore( cardItem: CardModel) -> Int {
+        return 0
+    }
+    
 }
 
 
